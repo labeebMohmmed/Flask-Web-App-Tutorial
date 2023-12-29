@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %}قائمة التوكيلات{% endblock %} {% block content%}
+{% if 'loggedin' in session  %}
+<br>
+<div class="container">
+  <div class="text-right" >  
+    <a class="btn btn-outline-dark  bi bi-plus-circle m-3" href=""  data-toggle="modal" data-target="#authtypemodal">   توكيل جديد</a> 
+  </div>
+  <table class="table table-striped table-hover table-bordered reverse" dir="rtl">    
+    <thead class="table-dark">
+      <tr>        
+        <th scope="col">الرقم المرجعي</th>
+        <th scope="col">مقدم الطلب</th>        
+        <th scope="col">الموكل بالإجراء</th>
+        <th scope="col">تاريخ الإجراء </th>        
+        <th scope="col">حالة المعاملة</th>
+        <th scope="col">حالة الإجراء</th>
+        <th scope="col">حالة السداد</th>
+        <th scope="col">المعالجة</th>
+      </tr>
+    </thead>
+    <tbody>              
+      {% for auth in authsList %}
+        <tr>              
+          <td>{{user[4]}}</td>
+          <td>{{user[1]}}</td>
+          <td>{{user[9]}}</td>
+          <td>{{user[2]}}</td>
+          <td>{{user[3]}}</td>          
+          <td>{{user[7]}}</td>          
+          <td>{{user[5]}}</td>
+          <td>{{user[8]}}</td>     
+          <td>
+            <!--<a class="btn btn-dark" href="{{url_for('views.view', userid = user[0])}}" role="button">معاينة</a> 
+              -->
+              <a class="btn btn-dark" href="" data-toggle="modal" data-target="#modaledit{{user[0]}}">معاينة</a> 
+          </td> 
+        </tr>  
+
+        {% endfor %}
+      </tbody>
+    </table>   
+    <div id="authtypemodal" class="modal fade" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-2 shadow">
+          <div class="modal-header" dir="rtl">
+            <h4>نوع التوكيل</h4>
+            
+          </div>
+          <div class="modal-body">   
+            <form method="POST">  
+              
+              
+              <div class="form-group text-right">
+                <label for="text">الوظيفة</label>
+                <select class="form-select text-right" aria-label="Default select example" name="jobPosition" id="jobPosition">
+                    <option selected>اختر نوع التوكيل من القائمة</option>
+                    <option value="1">قنصل عام</option>
+                    <option value="2">نائب قنصل</option>
+                    <option value="إداري">إداري</option>
+                    <option value="إداري">مدير مالي</option>      
+                    <option value="5">محاسب</option>
+                    <option value="6">موظف محلي</option>            
+                </select>
+              </div>  
+              <button href="{{url_for('views.view')}}" class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" type="submit">تحديث</button>                                                        
+              <button href="{{url_for('proDoc.newproDoc')}}" class=" btn btn-secondary" type="submit">الارشفة الأولية</button> 
+              <br>                       
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>                
+  </div>
+{% endif %}
+{% endblock %}
